@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg: #060A12;
+    --panel: #0D1320;
+    --panel-2: #121A2A;
+    --border: #1C2738;
+    --border-soft: #151E2E;
+    --text: #E8EEF5;
+    --text-soft: #8C9AB0;
+    --text-dim: #4C5870;
+    --safe: #3DDC97;
+    --alert: #FF6B5B;
+    --signal: #5EB1FF;
+    --amber: #FFC857;
+  }
+
+  body {
+    background: 
+      radial-gradient(ellipse 1200px 600px at 50% -10%, rgba(94,177,255,0.08), transparent 60%),
+      var(--bg);
+    color: var(--text);
+  }
+
+  /* Keyboard-only focus ring helper */
+  *:focus-visible {
+    outline: 2px solid var(--signal);
+    outline-offset: 2px;
+  }
+}
+
+/* Custom keyframes & utilities */
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 8px currentColor;
+  }
+  50% {
+    opacity: 0.35;
+    box-shadow: 0 0 2px currentColor;
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s infinite;
+}
+
+/* Scanline grid background */
+.grid-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(94,177,255,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(94,177,255,0.035) 1px, transparent 1px);
+  background-size: 46px 46px;
+  mask-image: radial-gradient(ellipse 80% 50% at 50% 10%, black 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 50% at 50% 10%, black 30%, transparent 75%);
+}
+
+/* Smooth transition for metric bars width */
+.bar-fill-transition {
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Custom scrollbar styling for a high-tech terminal look */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-soft);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border);
+}
+
+/* Reduced motion preference override */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-delay: 0s !important;
+    animation-duration: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0s !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-pulse-glow,
+  .brand-dot-pulse {
+    animation: none !important;
+  }
+}
